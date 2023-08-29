@@ -15,7 +15,7 @@ public class bai6 {
 }
 
 /*
-* Bai7: khi bien dich chuong trinh:
+* Bai 7: khi bien dich chuong trinh:
 *   public class Hello {
         public static void main() {
             System.out.println("Doesn't execute");

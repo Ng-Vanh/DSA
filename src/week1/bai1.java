@@ -1,4 +1,5 @@
 package week1;
+import edu.princeton.cs.algs4.StdOut;
 
 public class bai1 {
     public static void main(String[] args) {

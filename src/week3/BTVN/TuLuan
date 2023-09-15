@@ -1,0 +1,55 @@
+1.4.1:
+    Với n = 3 ==> có 1 cách chọn ==> đúng với công thức
+    Giả giử công thức đúng với n = k. Tức là số bộ ba đc chọn là: (k)(k-1)(k-2) / 6;
+    Ta cần chứng minh công thức trên đúng với n = k + 1;
+    Thật vậy: số cách chọn 3 ptu là: (k+1)C3 = ...
+1.4.2: ThreeSumRepair.java
+1.4.3:
+1.4.5:
+        N + 1 ~ N
+        1 + 1/N ~ 1
+        (1+ 1/N)(1 + 2/N) ~ 1
+        2N3 - 15N2 + N ~2N^3
+        lg(2N)/lgN ~ 1
+        lg(N2 + 1)/lgN
+        N100/2N
+1.4.6:
+    a, int sum = 0;
+          for (int n = N; n > 0; n /= 2)
+            for(int i = 0; i < n; i++) sum++;
+    => NLogN
+    => N + N/2 + N/4+....+1
+
+    b. int sum = 0;
+       for (int i = 1; i < N; i *= 2)
+            for (int j = 0; j < i; j++) sum++;
+    => NLogN
+    => 1 + 2 + 4 +... + N/4 + N/2 + N;
+    c. int sum = 0;
+       for (int i = 1; i < N; i *= 2)
+            for (int j = 0; j < N; j++) sum++;
+
+1.4.7:
+         Arrays.sort(a);
+                int n = a.length;
+                for (int i = 0; i < n - 2; i++) {
+                    int left = i+1;
+                    int right = n-1;
+                    int cur = a[i];
+                    while (left<right){
+                        if(a[left] + a[right] == -cur){
+                            System.out.println(cur+" "+a[left]+" "+a[right]);
+                            while (left < right && a[left] == a[left + 1]) left++;
+                            while (left < right && a[right] == a[right - 1]) right--;
+                            left++;
+                            right--;
+                        } else if (a[left] + a[right] < -cur) {
+                            left++;
+                        }else{
+                            right--;
+                        }
+                    }
+                }
+1.4.8:Sort:
+1.4.10: Binary Search:
+1.4.12: Số cùng xuất hiện ở 2 mảng

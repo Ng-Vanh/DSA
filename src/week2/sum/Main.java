@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        In in = new In("C:\\Users\\ユーザー\\IdeaProjects\\DSA\\src\\week2\\sum\\2Kints.txt");
+        In in = new In("C:\\Users\\vanh2\\IdeaProjects\\DSA\\src\\week2\\sum\\2Kints.txt");
         int[] a = in.readAllInts();
 
         //Sum2:

@@ -7,15 +7,23 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int sz = sc.nextInt();
         int edge = sc.nextInt();
+
         quickUF qUF = new quickUF(sz);
 
-        for(int i=0; i<edge; i++){
+        while(sc.hasNextInt()){
             int x = sc.nextInt();
             int y = sc.nextInt();
 
             qUF.union(x,y);
         }
 
-        qUF.getId(sz);
+        int tplt = qUF.getSoTPLT();
+        if(tplt > 1 ){
+            System.out.println(tplt);
+            System.out.println("FAILED");
+        }
+        else if(tplt == 1){
+            System.out.println(qUF.getSoCanhConect());
+        }
     }
 }

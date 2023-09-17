@@ -20,13 +20,31 @@ public class CountEqualNumber {
     }
     public static int CountEqual(int [] arr){
         int res = 0;
-        List<Integer> arrayList = toArrayList(arr);
-        Collections.sort(arrayList);
+        Arrays.sort(arr);
         List<Integer> tmp = new ArrayList<Integer>();
-        for (int i = 0; i < arrayList.size(); i++) {
-            
+        int cnt = 1;
+        for (int i = 0; i < arr.length-1; i++) {
+            if(arr[i] == arr[i+1]){
+                cnt++;
+            }else{
+                if(cnt >= 2){
+                    tmp.add(cnt);
+                    cnt = 1;
+                }else{
+                    cnt = 1;
+                }
+            }
+        }
+        for (int i = 0; i < tmp.size(); i++) {
+            res += C(2, tmp.get(i));
         }
 
         return res;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{2,1,2,3,4,3,3};
+        int res = CountEqual(arr);
+        System.out.println(res);
     }
 }

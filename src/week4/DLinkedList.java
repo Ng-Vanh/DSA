@@ -7,4 +7,13 @@ public class DLinkedList {
       this.head = null;
       this.tail = null;
    }
+   public boolean isEmpty(){
+      return head == null && tail == null;
+   }
+
+
+
+   public static void main(String[] args) {
+
+   }
 }

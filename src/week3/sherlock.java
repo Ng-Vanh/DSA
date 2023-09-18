@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class sherlock {
     public static String balancedSums(List<Integer> arr) {
         // Write your code here
+        //Link: https://www.hackerrank.com/challenges/sherlock-and-array/problem
         if (arr == null ) {
             return "NO";
         }

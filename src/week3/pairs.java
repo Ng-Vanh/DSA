@@ -5,6 +5,7 @@ import edu.princeton.cs.algs4.In;
 import java.util.*;
 
 public class pairs {
+    //Link: https://www.hackerrank.com/challenges/pairs/problem
     public static int pairs(int k, List<Integer> arr) {
         Set<Integer> numberSet = new HashSet<>();
         int count = 0;

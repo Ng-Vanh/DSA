@@ -5,8 +5,9 @@ import java.util.*;
 public class closestNum {
     public static List<Integer> closestNumbers(List<Integer> arr) {
         // Write your code here
+        //Link: https://www.hackerrank.com/challenges/closest-numbers/problem
         if (arr == null || arr.size() < 2) {
-            return new ArrayList<Integer>(); // Trả về danh sách trống nếu danh sách đầu vào rỗng hoặc chỉ có 1 phần tử.
+            return new ArrayList<Integer>();
         }
 
         int minDifference = Integer.MAX_VALUE;

@@ -7,7 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LinkedList {
+    private Node head;
 
+    public LinkedList(Node head) {
+        this.head = head;
+    }
+    public LinkedList(){
+        this.head = null;
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
 
     public static void printLinkedList(Node head){
 //        Node run = head;
@@ -136,13 +151,15 @@ public class LinkedList {
             }
         }
     }
-    public static Node reverseLinked(Node head){
-        if(head == null){
-            return null;
+
+    public static Node reverseLinked(Node head) {
+        if (head == null || head.next == null) {
+            return head;
         }
+
         Node prev = null;
         Node cur = head;
-        while(cur!=null){
+        while (cur != null) {
             //Lấy Node next là vị trí tiếp theo
             Node next = cur.next;
             //đảo ngược liên kết cur: Ban đầu cur trỏ đến nút sau, nhưng
@@ -153,6 +170,15 @@ public class LinkedList {
             cur = next;
         }
         return prev;
+    }
+    public static Node reverseDquy(Node head){
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node res = reverseDquy(head.next);
+        head.next.next = head;
+        head.next = null;
+        return res;
     }
     public static boolean compareList(Node head1, Node head2){
         List<Integer> arr1 = new ArrayList<Integer>();
@@ -274,33 +300,6 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
-        Node head = new Node(-1);
-        for (int i = 0; i < 10; i+=2) {
-            head = addTail(head,i);
-        }
-        Node test = new Node(-2);
-        for (int i = 1; i < 10; i+=2) {
-            test = addTail(test,i);
-        }
-        System.out.print("Head1: ");
-        printLinkedList(head);
-        System.out.print("Head2: ");
-        printLinkedList(test);
-
-        Node res = mergeList(head,test);
-        System.out.print("Merge: ");
-        addMid(res,0,2);
-        addMid(res,0,2);
-        addMid(res,0,2);
-        addMid(res,3,8);
-        addMid(res,3,8);
-
-        removeDuplicates(res);
-
-        printLinkedList(res);
-
-
-
 
     }
 }

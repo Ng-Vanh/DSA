@@ -11,7 +11,5 @@ public class DNode {
         this.prev = null;
     }
 
-    public DNode() {
 
-    }
 }

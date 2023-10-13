@@ -8,27 +8,33 @@ public class BalanceBrakets {
         //link: https://www.hackerrank.com/challenges/balanced-brackets/problem
         Stack<Character> st = new Stack<Character>();
 
-        for(char c: s.toCharArray()){
-            if(c == '{' || c == '[' || c == '('){
+        for (char c : s.toCharArray()) {
+            if (c == '{' || c == '[' || c == '(') {
                 st.push(c);
-            }else if(c == '}' || c == ']' || c == ')'){
-                if(st.isEmpty()){
+            }
+            else if (c == '}' || c == ']' || c == ')') {
+                if (st.isEmpty()) {
                     return "NO";
                 }
 
                 char wTop = st.pop();
-                if(c == '}' && wTop != '{'
-                        || c == ']' && wTop !='['
-                        || c == ')' && wTop!='('){
+                if (c == '}' && wTop != '{'
+                        || c == ']' && wTop != '['
+                        || c == ')' && wTop != '(') {
                     return "NO";
                 }
             }
         }
-        if(st.isEmpty()){
+        if (st.isEmpty()) {
             return "YES";
-        }else{
+        } else {
             return "NO";
         }
+    }
 
+    public static void main(String[] args) {
+        String str = "(()";
+        String res = isBalanced(str);
+        System.out.println(res);
     }
 }

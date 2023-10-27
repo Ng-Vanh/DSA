@@ -3,44 +3,42 @@ package GK;
 import java.util.Scanner;
 
 public class UniF {
-    static int[] parent = new int[100001];
+    static int[] id = new int[10001];
     static int c;
 
-    static int minn;
+    static int MAX;
 
     public static int find(int u){
-        if(parent[u]<=-1) return u;
-        else return parent[u]=find(parent[u]);
+        if(id[u]<=-1) return u;
+        else return id[u] = find(id[u]);
     }
-
     public static void Union(int a, int b) {
-        a=find(a);
-        b=find(b);
+        a = find(a);
+        b = find(b);
 
-        if(a==b) return;
+        if (a == b) return;
         else {
-            if(parent[a]<parent[b]) {
-                parent[a]+=parent[b];
-                if(minn<Math.abs(parent[a])) minn = Math.abs(parent[a]);
-                parent[b]=a;
+            if (id[a] < id[b]) {
+                id[a] += id[b];
+                if (MAX < Math.abs(id[a])) MAX = Math.abs(id[a]);
+                id[b] = a;
                 c--;
-            }
-            else {
-                parent[b]+=parent[a];
-                if(minn<Math.abs(parent[b])) minn = Math.abs(parent[b]);
-                parent[a]=b;
+            } else {
+                id[b] += id[a];
+                if (MAX < Math.abs(id[b])) MAX = Math.abs(id[b]);
+                id[a] = b;
                 c--;
             }
         }
     }
-    public static void main(String args[] ) throws Exception {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
         c = n;
-        minn = 1;
+        MAX = 1;
         for (int i=1;i<=n;i++){
-            parent[i]=-1;
+            id[i]=-1;
         }
         for (int i=1;i<=m;i++){
             int ch = sc.nextInt();
@@ -54,12 +52,12 @@ public class UniF {
             }
             if(ch==3){
                 int p = sc.nextInt();
-                if(parent[p]<0)
-                    System.out.println(Math.abs(parent[p]));
-                else System.out.println(Math.abs(parent[find(p)]));
+                if(id[p]<0)
+                    System.out.println(Math.abs(id[p]));
+                else System.out.println(Math.abs(id[find(p)]));
             }
             if(ch==4){
-                System.out.println(minn);
+                System.out.println(MAX);
             }
         }
     }

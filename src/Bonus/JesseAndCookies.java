@@ -1,4 +1,4 @@
-package Bonus.week8;
+package Bonus;
 
 import java.util.List;
 

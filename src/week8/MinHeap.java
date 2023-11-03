@@ -77,6 +77,10 @@ public class MinHeap {
         return min;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public static void main(String[] args) {
         MinHeap heap = new MinHeap();
         heap.insert(1);

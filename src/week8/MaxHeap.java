@@ -36,6 +36,11 @@ public class MaxHeap {
             }
         }
     }
+
+    public int getSize() {
+        return size;
+    }
+
     public int peek() {
         return heap[1];
     }

@@ -1,4 +1,4 @@
-package other.Tree;
+package Week9;
 
 
 import java.util.LinkedList;
@@ -71,6 +71,7 @@ public class BST {
 
         return root;
     }
+    //
 
     private int minValue(TreeNode node) {
         int minValue = node.value;
@@ -80,6 +81,7 @@ public class BST {
         }
         return minValue;
     }
+    //https://www.hackerrank.com/challenges/tree-preorder-traversal/problem
 
     public void preorderTraversal(TreeNode root) {
         if (root != null) {
@@ -88,6 +90,7 @@ public class BST {
             preorderTraversal(root.right);
         }
     }
+    //https://www.hackerrank.com/challenges/tree-inorder-traversal/problem
 
     public void inorderTraversal(TreeNode root) {
         if (root != null) {
@@ -105,6 +108,7 @@ public class BST {
         }
     }
 
+    //https://www.hackerrank.com/challenges/tree-level-order-traversal/problem
     public void levelOrderTraversal(TreeNode root) {
         if(root == null) {
             return;

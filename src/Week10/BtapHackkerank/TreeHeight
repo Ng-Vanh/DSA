@@ -1,0 +1,22 @@
+//https://www.hackerrank.com/challenges/tree-height-of-a-binary-tree/problem
+// java 7
+
+
+
+	/*
+    class Node
+    	int data;
+    	Node left;
+    	Node right;
+	*/
+	public static int height(Node root) {
+      	// Write your code here.
+           if (root == null) {
+            return -1;
+        } else {
+            int leftHeight = height(root.left);
+            int rightHeight = height(root.right);
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+    }
+

@@ -1,0 +1,58 @@
+    //https://www.hackerrank.com/challenges/is-binary-search-tree/problem
+    // java 7
+
+    //Cach 1: duyet Inorder
+    /* Hidden stub code will pass a root argument to the function below. Complete the function to solve the challenge. Hint: you may want to write one or more helper functions.
+
+    The Node class is defined as follows:
+        class Node {
+            int data;
+            Node left;
+            Node right;
+         }
+    */
+    public static int arr[] = new int[1000005];
+        static int si = 0;
+        public static void inorder(Node root){
+            if (root == null){
+                return;
+            }
+            inorder(root.left);
+            arr[++si] = root.data;
+            inorder(root.right);
+        }
+        boolean checkBST(Node root) {
+             inorder(root);
+            for(int i = 1; i < si; i++){
+                if(arr[i] >= arr[i+1]){return false;}
+            }
+            return true;
+        }
+
+
+        //cach 2: De quy
+
+        /* Hidden stub code will pass a root argument to the function below. Complete the function to solve the challenge. Hint: you may want to write one or more helper functions.
+
+        The Node class is defined as follows:
+            class Node {
+                int data;
+                Node left;
+                Node right;
+             }
+        */
+            public boolean checkBST(Node root) {
+                return isBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            }
+
+            private boolean isBSTUtil(Node node, int min, int max) {
+                if (node == null) {
+                    return true;
+                }
+
+                if (node.data <= min || node.data >= max) {
+                    return false;
+                }
+
+                return isBSTUtil(node.left, min, node.data) && isBSTUtil(node.right, node.data, max);
+            }

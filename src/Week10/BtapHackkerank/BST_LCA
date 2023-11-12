@@ -1,0 +1,30 @@
+    //https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem
+    // java 7
+
+
+
+	/*
+    class Node
+    	int data;
+    	Node left;
+    	Node right;
+	*/
+	public static Node lca(Node node, int n1, int n2) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.data == n1 || node.data == n2) {
+            return node;
+        }
+
+        Node leftLCA = lca(node.left, n1, n2);
+        Node rightLCA = lca(node.right, n1, n2);
+
+        if (leftLCA != null && rightLCA != null) {
+            return node;
+        }
+
+        return (leftLCA != null) ? leftLCA : rightLCA;
+    }
+

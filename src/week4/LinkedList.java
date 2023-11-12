@@ -160,12 +160,8 @@ public class LinkedList {
         Node prev = null;
         Node cur = head;
         while (cur != null) {
-            //Lấy Node next là vị trí tiếp theo
             Node next = cur.next;
-            //đảo ngược liên kết cur: Ban đầu cur trỏ đến nút sau, nhưng
-            //ở đây đảo về trỏ đến prev
             cur.next = prev;
-            //dịch prev và cur đến nút kế tiếp.
             prev = cur;
             cur = next;
         }

@@ -1,0 +1,85 @@
+
+
+ static int height(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return node.ht;
+
+    }
+
+ static void updateHeight(Node node) {
+        if (node != null) {
+            node.ht = 1 + Math.max(height(node.left), height(node.right));
+        }
+    }
+
+     static Node leftRotate(Node x) {
+        Node y = x.right;
+        Node T2 = y.left;
+
+        y.left = x;
+        x.right = T2;
+
+        updateHeight(x);
+        updateHeight(y);
+
+        return y;
+    }
+
+     static Node rightRotate(Node y) {
+        Node x = y.left;
+        Node T2 = x.right;
+
+        x.right = y;
+        y.left = T2;
+
+        updateHeight(y);
+        updateHeight(x);
+
+        return x;
+    }
+
+     static int getBalance(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return height(node.left) - height(node.right);
+    }
+
+     static Node insert(Node root, int val) {
+        if (root == null) {
+            root.ht = 0;
+            root.val = val;
+            root.left = root.right = null;
+        }else{
+            if (val < root.val) {
+            root.left = insert(root.left, val);
+        } else if (val > root.val) {
+            root.right = insert(root.right, val);
+        } else {
+            return root;
+        }
+        updateHeight(root);
+        int balance = getBalance(root);
+
+        if (balance > 1) {
+            if (val < root.left.val) {
+                return rightRotate(root);
+            } else {
+                root.left = leftRotate(root.left);
+                return rightRotate(root);
+            }
+        }
+        if (balance < -1) {
+            if (val > root.right.val) {
+                return leftRotate(root);
+            } else {
+                root.right = rightRotate(root.right);
+                return leftRotate(root);
+            }
+          }
+        }
+
+        return root;
+    }

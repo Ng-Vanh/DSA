@@ -13,7 +13,7 @@ public class ConnectedCell {
         return row >=0 && row < N && col >=0 && col < M;
     }
     static int count_connected(int row, int col) {
-        int cnt = 1;  // Start with 1 for the current cell
+        int cnt = 1;
         visited[row][col] = true;
 
         for (int i = 0; i < 8; i++) {

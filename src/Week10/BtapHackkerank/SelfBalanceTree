@@ -1,1 +1,108 @@
     //https://www.hackerrank.com/challenges/self-balancing-tree/
+
+	/* Class node is defined as :
+    class Node
+    	int val;	//Value
+    	int ht;		//Height
+    	Node left;	//Left child
+    	Node right;	//Right child
+
+	*/
+Node(){}
+Node(int data) {
+            this.val = data;
+            left = null;
+            right = null;
+    this.ht = 0;
+        }
+ public static int height(Node root) {
+        if (root == null) {
+            return -1;
+        } else {
+            int leftHeight = height(root.left);
+            int rightHeight = height(root.right);
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+
+    }
+    private static void updateHeight(Node node) {
+        if (node != null) {
+            node.ht = 1 + Math.max(height(node.left), height(node.right));
+        }
+    }
+private static Node leftRotate(Node x) {
+        Node y = x.right;
+        Node T2 = y.left;
+
+        y.left = x;
+        x.right = T2;
+
+        updateHeight(x);
+        updateHeight(y);
+
+        return y;
+    }
+    private static int getBalance(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return height(node.left) - height(node.right);
+    }
+
+    private static Node rightRotate(Node y) {
+        Node x = y.left;
+        Node T2 = x.right;
+
+        x.right = y;
+        y.left = T2;
+
+        updateHeight(y);
+        updateHeight(x);
+
+        return x;
+    }
+
+	public static Node insert(Node root,int val)
+    {
+        if (root == null) {
+            return new Node(val);
+        }
+
+        if (val < root.val) {
+            root.left = insert(root.left, val);
+        } else if (val > root.val) {
+            root.right = insert(root.right, val);
+        } else {
+            // Duplicate values are not allowed in AVL tree
+            return root;
+        }
+
+        // Update height of the current node
+        updateHeight(root);
+
+        // Get the balance factor of this node to check for unbalance
+        int balance = getBalance(root);
+
+        // Perform rotations if needed to balance the tree
+        if (balance > 1) {
+            if (val < root.left.val) {
+                // Left-Left case
+                return rightRotate(root);
+            } else {
+                // Left-Right case
+                root.left = leftRotate(root.left);
+                return rightRotate(root);
+            }
+        }
+        if (balance < -1) {
+            if (val > root.right.val) {
+                // Right-Right case
+                return leftRotate(root);
+            } else {
+                // Right-Left case
+                root.right = rightRotate(root.right);
+                return leftRotate(root);
+            }
+    }
+        return root;
+}

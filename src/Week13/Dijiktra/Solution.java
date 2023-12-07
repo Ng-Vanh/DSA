@@ -1,103 +1,85 @@
 package Week13.Dijiktra;
-
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-
-class Cost implements Comparable<Cost> {
-    public int weight, vertex;
-
-    public Cost(int cost, int vertex) {
-        this.weight = cost;
-        this.vertex = vertex;
-    }
-
-    @Override
-    public int compareTo(Cost c) {
-        if (weight != c.weight) {
-            return Integer.compare(weight, c.weight);
-        }
-        return Integer.compare(vertex, c.vertex);
-    }
-
-}
-
-class Result {
-
-    /*
-     * Complete the 'shortestReach' function below.
-     *
-     * The function is expected to return an INTEGER_ARRAY.
-     * The function accepts following parameters:
-     *  1. INTEGER n
-     *  2. 2D_INTEGER_ARRAY edges
-     *  3. INTEGER s
-     */
-
-    public static List<Integer> shortestReach(int n, List<List<Integer>> edges, int s) {
-        // Write your code here
-        List<Integer> result = new ArrayList<Integer>();
-
-
-        return result;
-
-    }
-
-}
 
 public class Solution {
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+    static class DGraph {
+        private static int V = 0;
+        private static List<List<Node>> adj = new ArrayList<List<Node>>();
 
-        int t = Integer.parseInt(bufferedReader.readLine().trim());
+        public DGraph(int V) {
+            this.V = V;
 
-        IntStream.range(0, t).forEach(tItr -> {
-            try {
-                String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
-
-                int n = Integer.parseInt(firstMultipleInput[0]);
-
-                int m = Integer.parseInt(firstMultipleInput[1]);
-
-                List<List<Integer>> edges = new ArrayList<>();
-
-                IntStream.range(0, m).forEach(i -> {
-                    try {
-                        edges.add(
-                                Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                                        .map(Integer::parseInt)
-                                        .collect(toList())
-                        );
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                });
-
-                int s = Integer.parseInt(bufferedReader.readLine().trim());
-
-                List<Integer> result = Result.shortestReach(n, edges, s);
-
-                bufferedWriter.write(
-                        result.stream()
-                                .map(Object::toString)
-                                .collect(joining(" "))
-                                + "\n"
-                );
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+            for (int i = 0; i < V; i++) {
+                adj.add(new ArrayList<>());
             }
-        });
+        }
 
-        bufferedReader.close();
-        bufferedWriter.close();
+        public void addEdge(int u, int v, int weight) {
+            adj.get(u).add(new Node(v, weight));
+            adj.get(v ).add(new Node(u, weight));
+        }
+
+        public static int[] dijkstra(int start) {
+            int[] dist = new int[V];
+            Arrays.fill(dist, Integer.MAX_VALUE);
+            dist[start] = 0;
+
+            PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(n -> n.distance));
+            pq.add(new Node(start, 0));
+
+            while (!pq.isEmpty()) {
+                int u = pq.poll().vertex;
+
+                for (Node neighbor : adj.get(u)) {
+                    int v = neighbor.vertex;
+                    int weight = neighbor.distance;
+
+                    if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
+                        dist[v] = dist[u] + weight;
+                        pq.add(new Node(v, dist[v]));
+                    }
+                }
+            }
+
+            return dist;
+        }
+
+        static class Node {
+            private final int vertex;
+            private final int distance;
+
+            public Node(int vertex, int distance) {
+                this.vertex = vertex;
+                this.distance = distance;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int query = scanner.nextInt();
+        while(query -->0){
+            int nodes = scanner.nextInt();
+            int edges = scanner.nextInt();
+            DGraph dGraph = new DGraph(nodes);
+
+            for (int i = 0; i < edges; i++) {
+                int u = scanner.nextInt() -1;
+                int v = scanner.nextInt() -1;
+                int w = scanner.nextInt();
+                dGraph.addEdge(u, v, w);
+            }
+            int startNode = scanner.nextInt() - 1;
+            int[] distances = DGraph.dijkstra(startNode);
+            for (int i = 0; i < nodes; i++) {
+                if(i != startNode) {
+                    if(distances[i] == Integer.MAX_VALUE){
+                        System.out.print(-1 + " ");
+                    }else{
+                        System.out.print(distances[i] + " ");
+                    }
+                }
+            }
+        }
     }
 }

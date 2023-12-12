@@ -1,85 +1,63 @@
 package Week13.Dijiktra;
+
+
+import java.io.*;
 import java.util.*;
 
+
 public class Solution {
-    static class DGraph {
-        private static int V = 0;
-        private static List<List<Node>> adj = new ArrayList<List<Node>>();
-
-        public DGraph(int V) {
-            this.V = V;
-
-            for (int i = 0; i < V; i++) {
-                adj.add(new ArrayList<>());
-            }
-        }
-
-        public void addEdge(int u, int v, int weight) {
-            adj.get(u).add(new Node(v, weight));
-            adj.get(v ).add(new Node(u, weight));
-        }
-
-        public static int[] dijkstra(int start) {
-            int[] dist = new int[V];
-            Arrays.fill(dist, Integer.MAX_VALUE);
-            dist[start] = 0;
-
-            PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(n -> n.distance));
-            pq.add(new Node(start, 0));
-
-            while (!pq.isEmpty()) {
-                int u = pq.poll().vertex;
-
-                for (Node neighbor : adj.get(u)) {
-                    int v = neighbor.vertex;
-                    int weight = neighbor.distance;
-
-                    if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
-                        dist[v] = dist[u] + weight;
-                        pq.add(new Node(v, dist[v]));
-                    }
-                }
-            }
-
-            return dist;
-        }
-
-        static class Node {
-            private final int vertex;
-            private final int distance;
-
-            public Node(int vertex, int distance) {
-                this.vertex = vertex;
-                this.distance = distance;
-            }
-        }
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int query = scanner.nextInt();
-        while(query -->0){
-            int nodes = scanner.nextInt();
-            int edges = scanner.nextInt();
-            DGraph dGraph = new DGraph(nodes);
-
-            for (int i = 0; i < edges; i++) {
-                int u = scanner.nextInt() -1;
-                int v = scanner.nextInt() -1;
-                int w = scanner.nextInt();
-                dGraph.addEdge(u, v, w);
-            }
-            int startNode = scanner.nextInt() - 1;
-            int[] distances = DGraph.dijkstra(startNode);
-            for (int i = 0; i < nodes; i++) {
-                if(i != startNode) {
-                    if(distances[i] == Integer.MAX_VALUE){
-                        System.out.print(-1 + " ");
-                    }else{
-                        System.out.print(distances[i] + " ");
-                    }
+        while(query-->0){
+            int n = scanner.nextInt();
+            int m = scanner.nextInt();
+            long weight[][] = new long[n + 1][n + 1];
+            for (long[] row : weight)
+                Arrays.fill(row, 1000000l);
+            for (int i = 0; i < m; i++) {
+                int x = scanner.nextInt(), y = scanner.nextInt();
+                long curWeight = scanner.nextLong();
+                if (weight[x][y] > curWeight) {
+                    weight[x][y] = curWeight;
+                    weight[y][x] = curWeight;
                 }
             }
+            Stack<Integer> stack1 = new Stack<Integer>();
+            int start = scanner.nextInt();
+            for (int i = 1; i <= n; i++) {
+                if (i != start) {
+                    stack1.push(i);
+                }
+            }
+            Stack<Integer> stack2 = new Stack<Integer>();
+            stack2.push(start);
+            weight[start][start] = 0;
+            while (!stack1.isEmpty()) {
+                int minValue = Integer.MAX_VALUE, pos = -1;
+                for (int i = 0; i < stack1.size(); i++) {
+                    int edge1To = stack1.elementAt(i);
+                    weight[start][edge1To] = Math.min(weight[start][edge1To],
+                            weight[start][stack2.peek()] + weight[stack2.peek()][stack1.elementAt(i)]);
+                    if (weight[start][stack1.elementAt(i)] <= minValue) {
+                        minValue = (int) weight[start][stack1.elementAt(i)];
+                        pos = i;
+                    }
+                }
+                stack2.push(stack1.elementAt(pos));
+                stack1.removeElementAt(pos);
+            }
+            for (int i = 1; i <= n; i++) {
+                if (i != start && weight[start][i] != 1000000l) {
+                    System.out.print(weight[start][i] + " ");
+                } else if (i != start) {
+                    System.out.print("-1" + " ");
+                }
+            }
+            System.out.println();
         }
     }
 }
+
+
+
